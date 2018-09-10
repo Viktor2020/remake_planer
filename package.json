@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "url-parse": "^1.4.3"
+  },
   "devDependencies": {
     "babel-core": "^6.26.2",
     "babel-loader": "^7.1.4",
