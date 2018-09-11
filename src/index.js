@@ -1,5 +1,6 @@
 
-import * as PIXI from 'pixi.js'
+import { Container, Graphics, autoDetectRenderer } from 'pixi.js'
+
 
 function App() {
 	var self = this;
@@ -35,7 +36,7 @@ function SceneApp () {
 	this.width = 100;
 	this.height = 100;
 
-	this.renderer = new PIXI.autoDetectRenderer(this.width, this.height, {
+	this.renderer = autoDetectRenderer(this.width, this.height, {
 		antialias: false,
 		transparent: false,
 	});
@@ -43,9 +44,9 @@ function SceneApp () {
 	this.renderer.autoResize = true;
 	document.body.appendChild(this.renderer.view);
 
-	this.stage = new PIXI.Container();
+	this.stage = new Container();
 
-	this.background = new PIXI.Graphics();
+	this.background = new Graphics();
 	this.stage.addChild(this.background);
 
 	this.draw = function () {
