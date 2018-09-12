@@ -1,5 +1,6 @@
 
 import { Container, Graphics, autoDetectRenderer } from 'pixi.js'
+import Panel from '../utils/components/Panel.js'
 
 export default function SceneApp () {
 	var self = this;
@@ -19,6 +20,8 @@ export default function SceneApp () {
 
 	this.background = new Graphics();
 	this.stage.addChild(this.background);
+
+	this.panel = new Panel(this.stage, 100, 100);
 
 	this.draw = function () {
 		this.background.clear();
