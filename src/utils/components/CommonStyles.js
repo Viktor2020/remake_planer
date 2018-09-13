@@ -4,9 +4,9 @@
 // 	this.colorButton1 = 0xffb200;
 // 	this.colorButton2 = 0xdddddd;
 // }
-import LoaderTexture from '../../utils/LoaderTexture.js'
+import { LoaderTexture } from '../../utils/LoaderTexture.js'
 
-export default class CommonStyles {
+export class CommonStyles {
 	static otstup = 2;
 	static color = 0xffffff;
 	static color1 = 0x9b9fa8;

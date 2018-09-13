@@ -1,8 +1,8 @@
 
 import { Container, Graphics, autoDetectRenderer } from 'pixi.js'
-import Panel from '../utils/components/Panel.js'
+import { Panel } from '../utils/components/Panel.js'
 
-export default function SceneApp () {
+export function SceneApp () {
 	var self = this;
 
 	this.width = 100;

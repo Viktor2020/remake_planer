@@ -1,9 +1,9 @@
 
 import { Container, Graphics } from 'pixi.js'
-import CommonStyles from './CommonStyles.js'
-import Image from './Image.js'
+import { CommonStyles } from './CommonStyles.js'
+import { Image } from './Image.js'
 
-export default function PLPanel (cont, _x, _y) {
+export function PLPanel (cont, _x, _y) {
 	Container.call(this);
 	this.type = 'PLPanel';
 	var self = this;

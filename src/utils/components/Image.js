@@ -1,8 +1,8 @@
 
 import { Container, Graphics, Text, Sprite} from 'pixi.js'
-import CommonStyles from './CommonStyles.js'
+import { CommonStyles } from './CommonStyles.js'
 
-export default function PLImage (cont, _x, _y, _linkStart, fun) {
+export function PLImage (cont, _x, _y, _linkStart, fun) {
 	Container.call(this);
 	var self = this;
 	this.type = 'PLImage';

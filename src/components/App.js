@@ -1,8 +1,8 @@
 
-import SceneApp from './SceneApp.js'
-import PreloadResources from './PreloadResources.js'
+import { SceneApp } from './SceneApp.js'
+import { PreloadResources } from './PreloadResources.js'
 
-export default function App() {
+export function App() {
 	var self = this;
 
 	this.width = window.innerWidth;

@@ -2,7 +2,7 @@
 
 import { utils, loaders, Texture, BaseTexture } from 'pixi.js'
 
-export default function LoaderTexture () {
+export function LoaderTexture () {
 	var self = this;
 	this.type = 'LoaderTexture';
 

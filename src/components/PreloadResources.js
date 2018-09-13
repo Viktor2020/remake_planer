@@ -1,5 +1,5 @@
 
-export default function PreloadResources () {
+export function PreloadResources () {
 	var self = this;
 
 	var image = document.getElementsByClassName('icon-2')[0];
