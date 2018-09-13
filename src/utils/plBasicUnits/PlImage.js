@@ -1,19 +1,13 @@
 
 import { Container, Graphics, Text, Sprite} from 'pixi.js'
-import { CommonStyles } from './CommonStyles.js'
+import { PlStyles } from './PlStyles.js'
 
-export function PLImage (cont, _x, _y, _linkStart, fun) {
+export function PlImage () {
 	Container.call(this);
 	var self = this;
-	this.type = 'PLImage';
+	this.type = 'PlImage';
 
-	cont.addChild(this);
-	// CommonStyles.addElement(this);
-
-	this.fun = fun;
-
-	this.x = _x || 0;
-	this.y = _y || 0;
+	this.fun = null;
 
 	this._width = 100;
 	this._height = 100;
@@ -32,7 +26,7 @@ export function PLImage (cont, _x, _y, _linkStart, fun) {
 
 	this.loadError = function () {
 		if (!self.label) {
-			self.label = new Text(self._link, CommonStyles.style);
+			self.label = new Text(self._link, PlStyles.style);
 			self.addChild(self.label);
 		}
 		self.label.text = self._link;
@@ -76,7 +70,7 @@ export function PLImage (cont, _x, _y, _linkStart, fun) {
 		if (!this._link || this._link === 'null') return;
 		if (this._preloaderBool && !this.preloader) {
 			this.preloader = new PLPreloader(this, 0, 0);
-			// CommonStyles.removeElement(this.preloader, true);
+			// PlStyles.removeElement(this.preloader, true);
 		}
 		if (this._preloaderBool) {
 			this.preloader.width = this._width;
@@ -84,8 +78,8 @@ export function PLImage (cont, _x, _y, _linkStart, fun) {
 			this.preloader.activ = true;
 			this.preloader.visible = true;
 		}
-		CommonStyles.loaderTexture.clearFun(this.linkOld, this.loadComplit);
-		CommonStyles.loaderTexture.getTexture(this._link, this.loadComplit);
+		PlStyles.loaderTexture.clearFun(this.linkOld, this.loadComplit);
+		PlStyles.loaderTexture.getTexture(this._link, this.loadComplit);
 		this.linkOld = this._link;
 	};
 
@@ -96,14 +90,12 @@ export function PLImage (cont, _x, _y, _linkStart, fun) {
 		}
 		this.destroy();
 	};
-
-	if (_linkStart) this.link = _linkStart;
 }
 
-PLImage.prototype = Object.create(Container.prototype);
-PLImage.prototype.constructor = PLImage;
+PlImage.prototype = Object.create(Container.prototype);
+PlImage.prototype.constructor = PlImage;
 
-Object.defineProperties(PLImage.prototype, {
+Object.defineProperties(PlImage.prototype, {
 	link: {
 		set: function (value) {
 			if (this._link === value) return;

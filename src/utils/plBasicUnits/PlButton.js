@@ -1,25 +1,20 @@
 
 import { Container, Graphics } from 'pixi.js'
-import * as pl102 from './CommonStyles.js'
 
-export default function PLButton (cont, _x, _y, text, fun, _link) {
+export function PlButton () {
 	Container.call(this);
-	this.type = 'PLButton';
-	cont.addChild(this);
 	var self = this;
-	pl102.addElement(this);
+	this.type = 'PlButton';
 
-	this.x = _x || 0;
-	this.y = _y || 0;
+	this.fun = null;
+	this.funOver = null;
+	this.funOut = null;
+	this.funActiv = null;
+	this.funDown = null;
+	this.funDownFile = null;
+	this.funSetText = null;
+	self.funError = null;
 
-	this.fun = fun;
-	this.funOver;
-	this.funOut;
-	this.funActiv;
-	this.funDown;
-	this.funDownFile;
-	this.funSetText;
-	self.funError = undefined;
 	this._width = 100;
 	this._height = pl102.wh;
 	this._color = pl102.colorButton;
@@ -34,6 +29,7 @@ export default function PLButton (cont, _x, _y, text, fun, _link) {
 	this._boolAnimKontut = true;// Мигание контура при наведении
 	this._activMouse = true;
 	this._labelOtstup = null;
+	this._text = '';
 	this.boolScalePic = false;
 
 
@@ -65,12 +61,10 @@ export default function PLButton (cont, _x, _y, text, fun, _link) {
 	this.addChild(this.contentFilt);
 	this.tween = new TWEEN.Tween(this.contentFilt);
 
-	this._text = text;
-	if (this._text == undefined) this._text = 'text';
-	if (this._text == null) this._text = 'text';
-	if (this._text.length == 0) this._text = ' ';
+	
+	
 	this.label = new PLLabel(this.contentFilt, 5, 5, this._text);
-	pl102.removeElement(this.label, true);
+
 
 	this.graphF = new Graphics();
 	this.contentFilt.addChild(this.graphF);
@@ -327,10 +321,10 @@ export default function PLButton (cont, _x, _y, text, fun, _link) {
 	this.okDown = true;
 }
 
-PLButton.prototype = Object.create(Container.prototype);
-PLButton.prototype.constructor = PLButton;
+PlButton.prototype = Object.create(Container.prototype);
+PlButton.prototype.constructor = PlButton;
 
-Object.defineProperties(PLButton.prototype, {
+Object.defineProperties(PlButton.prototype, {
 	visiblePanel: {
 		set: function (value) {
 			this._visiblePanel = value;

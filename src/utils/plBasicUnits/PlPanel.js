@@ -1,38 +1,36 @@
 
 import { Container, Graphics } from 'pixi.js'
-import { CommonStyles } from './CommonStyles.js'
-import { Image } from './Image.js'
+import { PlStyles } from './PlStyles.js'
+import { PlImage } from './PlImage.js'
 
-export function PLPanel (cont, _x, _y) {
+export function PlPanel () {
 	Container.call(this);
-	this.type = 'PLPanel';
+	this.type = 'PlPanel';
 	var self = this;
-	cont.addChild(this);
-	// CommonStyles.addElement(this);
-
-	this.x = _x || 0;
-	this.y = _y || 0;
 
 	this._width = 100;
 	this._height = 100;
-	this._color = CommonStyles.color;
-	this._color1 = CommonStyles.color1;
+	this._color = PlStyles.color;
+	this._color1 = PlStyles.color1;
 	this._kontur = true;
 	this._nizNum = 30;
 	this._nizAlpha = 0.2;
 	this._notBac = false;
 	this._visiLine = false;
+	this._link = PlStyles.base;
 
-	this.konturThick = CommonStyles.kontur;
-	this.lineThick = CommonStyles.kontur;
+	this.konturThick = PlStyles.kontur;
+	this.lineThick = PlStyles.kontur;
 
 	this.graphics = new Graphics();
 	this.addChild(this.graphics);
 
-	this.image = new Image(this, 0, this._height - this._nizNum, CommonStyles.base);
-	// CommonStyles.removeElement(this.image, true);
+	this.image = new PlImage();
+	this.addChild(this.image);
+	this.image.link = this._link;
+	this.image.y = this._height - this._nizNum;
 	this.image.height = 30;
-	this._link = this.image._link;
+	
 	this.image.alpha = this._nizAlpha;
 
 	this.gPlus = new Graphics();// Для дебаг отрисовки
@@ -83,9 +81,10 @@ export function PLPanel (cont, _x, _y) {
 	this.draw102();
 }
 
-PLPanel.prototype = Object.create(Container.prototype);
-PLPanel.prototype.constructor = PLPanel;
-Object.defineProperties(PLPanel.prototype, {
+PlPanel.prototype = Object.create(Container.prototype);
+PlPanel.prototype.constructor = PlPanel;
+
+Object.defineProperties(PlPanel.prototype, {
 	link: {// замена градиентов
 		set: function (value) {
 			if (this._link != value) {

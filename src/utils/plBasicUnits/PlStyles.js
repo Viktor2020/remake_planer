@@ -1,12 +1,7 @@
-// function CommonStyles () {
-// 	this.wh = 28;
-// 	this.colorButton = 0x777777;
-// 	this.colorButton1 = 0xffb200;
-// 	this.colorButton2 = 0xdddddd;
-// }
+
 import { LoaderTexture } from '../../utils/LoaderTexture.js'
 
-export class CommonStyles {
+export class PlStyles {
 	static otstup = 2;
 	static color = 0xffffff;
 	static color1 = 0x9b9fa8;
