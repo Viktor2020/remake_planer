@@ -1,6 +1,6 @@
 
 import { Container, Graphics, autoDetectRenderer } from 'pixi.js'
-import { Panel } from '../utils/components/Panel.js'
+import { PlPanel } from '../utils/plBasicUnits/PlPanel.js'
 
 export function SceneApp () {
 	var self = this;
@@ -21,7 +21,11 @@ export function SceneApp () {
 	this.background = new Graphics();
 	this.stage.addChild(this.background);
 
-	this.panel = new Panel(this.stage, 100, 100);
+	this.panel = new PlPanel(this.stage, 100, 100);
+	this.stage.addChild(this.panel);
+	this.panel.x = 100;
+	this.panel.y = 100;
+
 
 	this.draw = function () {
 		this.background.clear();
