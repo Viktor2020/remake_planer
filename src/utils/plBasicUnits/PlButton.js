@@ -1,5 +1,5 @@
 
-import { Container, Graphics } from 'pixi.js'
+import { Container, Graphics } from 'pixi.js';
 
 export function PlButton () {
 	Container.call(this);
@@ -61,8 +61,6 @@ export function PlButton () {
 	this.addChild(this.contentFilt);
 	this.tween = new TWEEN.Tween(this.contentFilt);
 
-	
-	
 	this.label = new PLLabel(this.contentFilt, 5, 5, this._text);
 
 
@@ -130,7 +128,7 @@ export function PlButton () {
 		}
 		this.label.y = (this._height - this.rect.height) / 2;
 
-		if (this.image != undefined) {
+		if (this.image !== undefined) {
 			this.label.x = this._height + 5;
 			if (this.boolScalePic) {
 				ratio = this.image.picWidth / this._width;
@@ -157,7 +155,7 @@ export function PlButton () {
 	};
 
 	this.mouseOut = function (e) {
-		if (self._boolAnimKontut == true) {
+		if (self._boolAnimKontut === true) {
 			self.panel.kontur = false;
 			self.panel1.kontur = false;
 		}
@@ -165,7 +163,7 @@ export function PlButton () {
 	};
 
 	this.mouseOver = function (e) {
-		if (self._boolAnimKontut == true) {
+		if (self._boolAnimKontut === true) {
 			self.panel.kontur = true;
 			self.panel1.kontur = true;
 		}
@@ -176,7 +174,7 @@ export function PlButton () {
 	};
 
 	this.onDown = function (e) {
-		if (self.file != undefined) {
+		if (self.file !== undefined) {
 			self.file.click();
 			if (self.funDownFile)self.funDownFile();
 			return;
@@ -197,7 +195,7 @@ export function PlButton () {
 	this.mouseUp = function (e) {
 		self.tipBut = 0;
 		self.draw102();
-		if (self.funUp != undefined) {
+		if (self.funUp !== undefined) {
 			self.funUp();
 		}
 		if (pl102.isMouseEvents) {
@@ -211,13 +209,13 @@ export function PlButton () {
 
 	this.setStile = function (num, _w, _h) {
 
-		if (num == 0) {
+		if (num === 0) {
 			this.label.setParam(14, pl102.style.fill);
 			this.panel.nizAlpha = 0.7;
 			this.panel.nizNum = 0;
 			this.color = pl102.colorButton;
 		}
-		if (num == 1) {
+		if (num === 1) {
 			this.label.setParam(14, pl102.style.fill);
 			this.panel.nizAlpha = 0.25;
 			this.panel.nizNum = 30;
@@ -229,7 +227,7 @@ export function PlButton () {
 
 	this.file;
 	this.startFile = function (accept) {
-		if (this.file == undefined) {
+		if (this.file === undefined) {
 			this.file = document.createElement('input');
 			this.file.type = 'file';
 			if (accept) this.file.accept = accept;// "image/*";
@@ -241,7 +239,7 @@ export function PlButton () {
 	this.files;// files
 
 	this.onchange = function (e) {
-		if (e.target.files.length == 0) return;// нечего не выбрали
+		if (e.target.files.length === 0) return;// нечего не выбрали
 		self.files = e.target.files;
 		var reader = new FileReader();
 		reader.readAsDataURL(e.target.files[0]);
@@ -272,7 +270,7 @@ export function PlButton () {
 	this.link;
 	this.loadImeg = function (link) {
 		this.link = link;
-		if (this.image == undefined) {
+		if (this.image === undefined) {
 			this.image = new PLImage(this.contentFilt, 0, 0, undefined, function () {
 
 				if (self._boolProp) {
@@ -311,7 +309,7 @@ export function PlButton () {
 
 	this.kill = function () {};
 
-	if (_link != undefined) {
+	if (_link !== undefined) {
 		this.loadImeg(_link);
 	} else {
 		this.draw102();
@@ -360,7 +358,7 @@ Object.defineProperties(PlButton.prototype, {
 	boolAnimKontut: {
 		set: function (value) {
 			this._boolAnimKontut = value;
-			if (this._boolAnimKontut == true) {
+			if (this._boolAnimKontut === true) {
 				this.panel.kontur = false;
 				this.panel1.kontur = false;
 			} else {
@@ -374,7 +372,7 @@ Object.defineProperties(PlButton.prototype, {
 	},
 	activ: {
 		set: function (value) {
-			if (this._activ != value) {
+			if (this._activ !== value) {
 				this._activ = value;
 				this.panel.visible = !value;
 				this.panel1.visible = value;
@@ -406,7 +404,7 @@ Object.defineProperties(PlButton.prototype, {
 	},
 	activMouse: {
 		set: function (value) {
-			if (this._activMouse == value) return;
+			if (this._activMouse === value) return;
 			this._activMouse = value;
 			this.graphRect.visible = !this._activMouse;
 		},
@@ -418,9 +416,9 @@ Object.defineProperties(PlButton.prototype, {
 		set: function (value) {
 			this._text = value;
 			this.label.text = this._text;
-			if (this._text == undefined) this._text = 'text';
+			if (this._text === undefined) this._text = 'text';
 			if (this._text == null) this._text = 'text';
-			if (this._text.length == 0) this._text = ' ';
+			if (this._text.length === 0) this._text = ' ';
 
 			this.rect = this.label.getBounds();
 			this.rect.width /= this.worldTransform.a;
@@ -461,9 +459,9 @@ Object.defineProperties(PlButton.prototype, {
 	},
 	okDown: {
 		set: function (value) {
-			if (this._okDown != value) {
+			if (this._okDown !== value) {
 				this._okDown = value;
-				if (this._okDown == true) {
+				if (this._okDown === true) {
 					this.graphInter.interactive = true;
 					this.graphInter.buttonMode = true;
 					if (pl102.isMouseEvents) {

@@ -7,7 +7,7 @@ export function PreloadResources () {
 
 	var interval = null;
 	var loadIndicate = 0;
-	var loadIndicateStap = 0.4 ;
+	var loadIndicateStap = 0.4;
 	var isLoadedProc = false;
 	var isLoadedRes = false;
 

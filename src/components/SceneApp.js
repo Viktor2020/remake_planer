@@ -1,6 +1,6 @@
 
-import { Container, Graphics, autoDetectRenderer } from 'pixi.js'
-import { PlPanel } from '../utils/plBasicUnits/PlPanel.js'
+import { Container, Graphics, autoDetectRenderer } from 'pixi.js';
+import { PlPanel } from '../utils/plBasicUnits/PlPanel.js';
 
 export function SceneApp () {
 	var self = this;
@@ -10,7 +10,7 @@ export function SceneApp () {
 
 	this.renderer = autoDetectRenderer(this.width, this.height, {
 		antialias: false,
-		transparent: false,
+		transparent: false
 	});
 
 	this.renderer.autoResize = true;
@@ -29,7 +29,7 @@ export function SceneApp () {
 
 	this.draw = function () {
 		this.background.clear();
-		this.background.beginFill(0xffffff*Math.random());
+		this.background.beginFill(0xffffff * Math.random());
 		this.background.drawRect(0, 0, this.width, this.height);
 		this.background.endFill();
 	};
@@ -46,6 +46,6 @@ export function SceneApp () {
 	};
 
 	this.update = function () {
-		
+		// todo
 	};
 }

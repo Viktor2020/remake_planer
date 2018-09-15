@@ -1,7 +1,7 @@
 
-import { SceneApp } from './SceneApp.js'
+import { SceneApp } from './SceneApp.js';
 
-export function App() {
+export function App () {
 	var self = this;
 
 	this.width = 300;
@@ -10,7 +10,7 @@ export function App() {
 
 	this.init = function () {
 		window.trace = window.console.log.bind(window.console);
-		
+
 		self.appScene = new SceneApp();
 		self.appScene.resize(self.width, self.height);
 		self.loop();
@@ -35,25 +35,24 @@ export function App() {
 		var num = 0;
 		var deley = 500;
 
-		setTimeout(function() {
+		setTimeout(function () {
 			if (self.fun) self.fun(25);
-			window.console.log('load facke sound')
+			window.console.log('load facke sound');
 		}, deley * ++num);
-		setTimeout(function() {
+		setTimeout(function () {
 			if (self.fun) self.fun(50);
-			window.console.log('load facke text')
+			window.console.log('load facke text');
 		}, deley * ++num);
-		setTimeout(function() {
-			window.console.log('load facke server data')
+		setTimeout(function () {
+			window.console.log('load facke server data');
 			if (self.fun) self.fun(90);
 		}, deley * ++num);
-		setTimeout(function() {
-			window.console.log('load facke creating app')
+		setTimeout(function () {
+			window.console.log('load facke creating app');
 			if (self.fun) self.fun(100);
-			
+
 			self.init();
 
 		}, deley * ++num);
-	}
+	};
 }
-
