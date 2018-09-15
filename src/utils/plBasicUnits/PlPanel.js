@@ -1,7 +1,7 @@
 
-import { Container, Graphics } from 'pixi.js'
-import { PlStyles } from './PlStyles.js'
-import { PlImage } from './PlImage.js'
+import { Container, Graphics } from 'pixi.js';
+import { PlStyles } from './PlStyles.js';
+import { PlImage } from './PlImage.js';
 
 export function PlPanel () {
 	Container.call(this);
@@ -30,7 +30,7 @@ export function PlPanel () {
 	this.image.link = this._link;
 	this.image.y = this._height - this._nizNum;
 	this.image.height = 30;
-	
+
 	this.image.alpha = this._nizAlpha;
 
 	this.gPlus = new Graphics();// Для дебаг отрисовки
@@ -49,7 +49,7 @@ export function PlPanel () {
 		this.graphics.clear();
 		if (this._width < 2) return;
 
-		if (this._notBac == true) {
+		if (this._notBac === true) {
 			this.graphics.beginFill(this._color1);
 			this.graphics.drawRect(-this.konturThick / 2, -this.konturThick / 2, this._width + this.konturThick, this.konturThick);
 			this.graphics.drawRect(-this.konturThick / 2, this._height - this.konturThick / 2, this._width + this.konturThick, this.konturThick);
@@ -58,7 +58,7 @@ export function PlPanel () {
 			return;
 		}
 
-		if (this._kontur == true) {
+		if (this._kontur === true) {
 			ot = this.lineThick;
 			this.graphics.beginFill(this._color1);
 			this.graphics.drawRect(0, 0, this._width, this._height);
@@ -87,7 +87,7 @@ PlPanel.prototype.constructor = PlPanel;
 Object.defineProperties(PlPanel.prototype, {
 	link: {// замена градиентов
 		set: function (value) {
-			if (this._link != value) {
+			if (this._link !== value) {
 				this._link = value;
 				this.image.link = this._link;
 			}
@@ -98,7 +98,7 @@ Object.defineProperties(PlPanel.prototype, {
 	},
 	nizAlpha: {// нижний отступ меньше 0 растягиваеться на все
 		set: function (value) {
-			if (this._nizAlpha != value) {
+			if (this._nizAlpha !== value) {
 				this._nizAlpha = value;
 				this.image.alpha = this._nizAlpha;
 			}
@@ -109,7 +109,7 @@ Object.defineProperties(PlPanel.prototype, {
 	},
 	nizNum: {// нижний отступ меньше 0 растягиваеться на все
 		set: function (value) {
-			if (this._nizNum != value) {
+			if (this._nizNum !== value) {
 				this._nizNum = value;
 				var h = this._height;
 				this._height = -1;
@@ -122,7 +122,7 @@ Object.defineProperties(PlPanel.prototype, {
 	},
 	notBac: {// нижний отступ меньше 0 растягиваеться на все
 		set: function (value) {
-			if (this._notBac != value) {
+			if (this._notBac !== value) {
 				this._notBac = value;
 				this.image.visible = !this._notBac;
 			}
@@ -133,7 +133,7 @@ Object.defineProperties(PlPanel.prototype, {
 	},
 	kontur: {// контур вокруг контента
 		set: function (value) {
-			if (this._kontur != value) {
+			if (this._kontur !== value) {
 				this._kontur = value;
 				this.draw102();
 			}
@@ -144,7 +144,7 @@ Object.defineProperties(PlPanel.prototype, {
 	},
 	width: {// ширина
 		set: function (value) {
-			if (this._width != value) {
+			if (this._width !== value) {
 				this._width = value;
 				this.image.width = value;
 				this.draw102();
@@ -156,7 +156,7 @@ Object.defineProperties(PlPanel.prototype, {
 	},
 	height: {// высота
 		set: function (value) {
-			if (this._height != value) {
+			if (this._height !== value) {
 				this._height = value;
 				if (this._nizNum <= 0) {
 					this.image.height = value;
@@ -179,7 +179,7 @@ Object.defineProperties(PlPanel.prototype, {
 	},
 	color: { // цвет подложки снизу
 		set: function (value) {
-			if (this._color != value) {
+			if (this._color !== value) {
 				this._color = value;
 				this.draw102();
 			}
@@ -190,7 +190,7 @@ Object.defineProperties(PlPanel.prototype, {
 	},
 	color1: { // цвет контура
 		set: function (value) {
-			if (this._color1 != value) {
+			if (this._color1 !== value) {
 				this._color1 = value;
 				this.draw102();
 			}
@@ -201,7 +201,7 @@ Object.defineProperties(PlPanel.prototype, {
 	},
 	visiLine: { // цвет контура
 		set: function (value) {
-			if (this._visiLine != value) {
+			if (this._visiLine !== value) {
 				this._visiLine = value;
 				this.graphLine.visible = this._visiLine;
 			}

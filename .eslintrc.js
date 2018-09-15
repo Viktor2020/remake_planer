@@ -2,6 +2,9 @@ module.exports = {
     "env": {
         "browser": true
     },
+    "parserOptions": {
+        "sourceType": "module"
+    },
     "extends": ["eslint:recommended"],
     "rules": {
         "linebreak-style": [

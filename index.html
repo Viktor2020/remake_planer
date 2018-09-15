@@ -13,43 +13,30 @@
 		height: 100%;
 	}
 
-	.preloader {
-		position: fixed;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: #fff;
-		width: 100%;
-		height: 100%;
-	}
-
-	.icon-1 {
-		position: absolute;
-	}
-
-	.icon-2 {
-		position: absolute;
-		clip: rect(auto, 0px, auto, auto);
-	}
-
-	.canvas {
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		z-index: -1;
-	}
 </style>
 
 </head>
 
 <body>
-	<div>
-		<div class="preloader">
-			<img class="icon-1" src="resources/preloader/image_a.png">
-			<img class="icon-2" src="resources/preloader/image_b.png">
-		</div>
-		<div class="canvas"></div>
-	</div>
-	<script src='dist/main.js'></script>
+
+	<script src='dist/Indicator.js'></script>
+	<script src='dist/JSLoader.js'></script>
+	<script src='dist/AppLoader.js'></script>
+
+	<script type="text/javascript">
+		/* eslint-disable */
+
+		var appLoader = new AppLoader();
+
+		function sizeWindow () {
+			var w = document.documentElement.clientWidth;
+			var h = document.documentElement.clientHeight;
+			appLoader.sizeWindow(w, h);
+		}
+		sizeWindow();
+
+		window.addEventListener('resize', sizeWindow, false);
+		
+	</script>
 </body>
 </html>

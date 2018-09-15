@@ -1,6 +1,6 @@
 
 
-import { utils, loaders, Texture, BaseTexture } from 'pixi.js'
+import { utils, loaders, Texture, BaseTexture } from 'pixi.js';
 
 export function LoaderTexture () {
 	var self = this;
@@ -20,8 +20,8 @@ export function LoaderTexture () {
 		}
 		// уже загружен
 		for (var i = 0; i < this.array.length; i++) {
-			if (this.array[i].okLoad == true) {
-				if (this.array[i].link == link) {
+			if (this.array[i].okLoad === true) {
+				if (this.array[i].link === link) {
 					fun(this.array[i].texture);
 					return;
 				}
@@ -29,8 +29,8 @@ export function LoaderTexture () {
 		}
 		// загружаеться
 		for (var i = 0; i < this.array.length; i++) {
-			if (this.array[i].okLoad == false) {
-				if (this.array[i].link == link) {
+			if (this.array[i].okLoad === false) {
+				if (this.array[i].link === link) {
 					this.array[i].arrFun.push(fun);
 					return;
 				}
@@ -70,10 +70,10 @@ export function LoaderTexture () {
 
 	this.clearFun = function (link, fun) {
 		for (var i = 0; i < this.array.length; i++) {
-			if (this.array[i].link == link) {
+			if (this.array[i].link === link) {
 				if (fun) {
 					var index = this.array[i].arrFun.indexOf(fun);
-					if (index != -1) {
+					if (index !== -1) {
 						this.array[i].arrFun.splice(index, 1);
 					}
 				} else {
@@ -87,7 +87,7 @@ export function LoaderTexture () {
 		if (arrFun[link]) {
 			if (fun) {
 				var index = arrFun[link].indexOf(fun);
-				if (index != -1) arrFun[link].splice(index, 1);
+				if (index !== -1) arrFun[link].splice(index, 1);
 			} else {
 				arrFun[link].length = 0;
 			}
@@ -109,7 +109,7 @@ function PPixi () {
 
 	this.loadError = function (e) {
 		self.texture = Texture.EMPTY;
-		console.log('Херня в PPixi нет линка текстур', e);
+		window.console.log('Херня в PPixi нет линка текстур', e);
 		self.finish();
 	};
 

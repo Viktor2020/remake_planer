@@ -1,6 +1,6 @@
 
-import { Container, Graphics, Text, Sprite} from 'pixi.js'
-import { PlStyles } from './PlStyles.js'
+import { Container, Text, Sprite} from 'pixi.js';
+import { PlStyles } from './PlStyles.js';
 
 export function PlImage () {
 	Container.call(this);
@@ -115,7 +115,7 @@ Object.defineProperties(PlImage.prototype, {
 				this.sprite.position.x = this._otstup;
 			}
 
-			if (this._preloaderBool == true) if (this.preloader) this.preloader.width = this._width;
+			if (this._preloaderBool === true) if (this.preloader) this.preloader.width = this._width;
 		},
 		get: function () {
 			return this._width;
@@ -128,7 +128,7 @@ Object.defineProperties(PlImage.prototype, {
 				this.sprite.scale.y = (this._height - this._otstup * 2) / this.picHeight;
 				this.sprite.position.y = this._otstup;
 			}
-			if (this._preloaderBool == true) if (this.preloader) this.preloader.height = this._height;
+			if (this._preloaderBool === true) if (this.preloader) this.preloader.height = this._height;
 		},
 		get: function () {
 			return this._height;
