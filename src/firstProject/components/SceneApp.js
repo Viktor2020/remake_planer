@@ -1,6 +1,6 @@
 
 import { Container, Graphics, autoDetectRenderer } from 'pixi.js';
-import { PlPanel } from '../utils/plBasicUnits/PlPanel.js';
+import { PlPanel } from '../../utils/plBasicUnits/PlPanel.js';
 
 export function SceneApp () {
 	var self = this;
