@@ -1,20 +1,20 @@
 const path = require('path');
 
-let conf = {
-	entry: './src/firstProject/index.js',
-	output: {
-		path: path.resolve(__dirname, 'dist'),
+ let conf = {
+  	entry: './src/index.js',
+  	output: {
+    	path: path.resolve(__dirname, 'dist'),
 		filename: 'main.js',
 		publicPath: 'dist/'
-	},
-	devServer: {
+  	},
+  	devServer: {
 		overlay: true
-	},
+  	},
 	module: {
 		rules: [
 			{
 				test: /\.js$/,
-				loader: 'babel-loader'
+				loader: 'babel-loader',
 				// exclude: '/node_modules/'
 			}
 		]
@@ -32,4 +32,4 @@ module.exports = (_env, _options) => {
 	// conf.devtool = production ? 'source-map' : 'eval-sourcemap';
 
 	return conf;
-};
+}
