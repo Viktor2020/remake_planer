@@ -1,11 +1,11 @@
 const path = require('path');
 
 let conf = {
-	entry: './src/firstProject/index.js',
+	entry: './src/secondProject/index.js',
 	output: {
-		path: path.resolve(__dirname, 'dist'),
+		path: path.resolve(__dirname, 'dist2'),
 		filename: 'main.js',
-		publicPath: 'dist/'
+		publicPath: 'dist2/'
 	},
 	devServer: {
 		overlay: true
