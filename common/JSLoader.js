@@ -1,7 +1,4 @@
-
-
 function JSLoader (onLoad, onProgress, onError) {
-
 	var scope = this;
 	var itemsLoaded = 0;
 	var itemsTotal = 0;
@@ -14,7 +11,6 @@ function JSLoader (onLoad, onProgress, onError) {
 	this.onLoad = onLoad;
 	this.onProgress = onProgress;
 	this.onError = onError;
-
 
 	this.loadArr = function (arrUrl) {
 		for (var i = 0; i < arrUrl.length; i++) {
@@ -29,7 +25,7 @@ function JSLoader (onLoad, onProgress, onError) {
 	};
 
 	this.itemProgress = function (url, e) {
-		scope.procentObj[url] = (e.loaded / e.total * 100) || 0;
+		scope.procentObj[url] = e.loaded / e.total * 100 || 0;
 		updateProcent();
 
 		if (scope.onProgress !== undefined) {
@@ -70,35 +66,44 @@ function JSLoader (onLoad, onProgress, onError) {
 	};
 
 	this._load = function (url) {
-
 		var request = new XMLHttpRequest();
 		request.open('GET', url, true);
 
-		request.addEventListener('load', function (event) {
-			var response = event.target.response;
+		request.addEventListener(
+			'load',
+			function (event) {
+				var response = event.target.response;
 
-			if (this.readyState === 4 && this.status === 200) {
-				scope.itemEnd(url, response);
-			} else {
+				if (this.readyState === 4 && this.status === 200) {
+					scope.itemEnd(url, response);
+				} else {
+					scope.itemEnd(url);
+					scope.itemError(url, event);
+				}
+			},
+			false
+		);
+
+		request.addEventListener(
+			'progress',
+			function (event) {
+				scope.itemProgress(url, event);
+			},
+			false
+		);
+
+		request.addEventListener(
+			'error',
+			function (event) {
 				scope.itemEnd(url);
 				scope.itemError(url, event);
-			}
-		}, false);
-
-		request.addEventListener('progress', function (event) {
-			scope.itemProgress(url, event);
-		}, false);
-
-		request.addEventListener('error', function (event) {
-			scope.itemEnd(url);
-			scope.itemError(url, event);
-		}, false);
+			},
+			false
+		);
 
 		request.send(null);
 		scope.itemStart(url);
-
 	};
-
 }
 
 JSLoader.prototype.complete = function evalComplete () {

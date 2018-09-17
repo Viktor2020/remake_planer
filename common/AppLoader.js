@@ -1,7 +1,7 @@
 /**
-* Загрузчик приложения
-*/
-function AppLoader () {
+ * Загрузчик приложения
+ */
+function AppLoader (link, link1, manifest) {
 	var self = this;
 
 	this._width = 100;
@@ -10,12 +10,10 @@ function AppLoader () {
 
 	var maxProcFile = 0.6;
 	var maxProcAppInit = 0.4;
-	var imgLink = 'resources/preloader/image_a.png';
-	var imgLink1 = 'resources/preloader/image_b.png';
 
-	this.indicator = new Indicator(imgLink, imgLink1, function indicatorRedy () {
+	this.indicator = new Indicator(link, link1, function indicatorRedy () {
 		self.sizeWindow();
-		self.jsLoader.loadArr(getManifest());
+		self.jsLoader.loadArr(manifest);
 	});
 
 	this.jsLoader = new JSLoader(onLoadJS, onProgressLoadJS);
@@ -34,7 +32,7 @@ function AppLoader () {
 	}
 
 	function onProgressInitApp (proc) {
-		self.indicator.procent = (100 * maxProcFile) + proc * maxProcAppInit;
+		self.indicator.procent = 100 * maxProcFile + proc * maxProcAppInit;
 		if (proc === 'created') {
 			self.sizeWindow();
 		}
@@ -49,14 +47,4 @@ function AppLoader () {
 		if (self.indicator) self.indicator.sizeWindow(self._width, self._height);
 		if (self.app) self.app.sizeWindow(self._width, self._height);
 	};
-
-}
-
-
-function getManifest (env) {
-	var manifest = [
-		'/dist/main.js' + '?a=' + Math.random()
-	];
-
-	return manifest;
 }

@@ -1,14 +1,13 @@
-
 function Indicator (imageName, imageName1, fun) {
 	var self = this;
 
-	this.fun = fun;// сработает когда индикатор готов
-	this._tipView = 1;	// тип как показавать загрузку 0 - с верху в низ; 1 - слева на право; 2 - с низу в вверх; 3 - с права на лево
+	this.fun = fun; // сработает когда индикатор готов
+	this._tipView = 1; // тип как показавать загрузку 0 - с верху в низ; 1 - слева на право; 2 - с низу в вверх; 3 - с права на лево
 	this._procent = 0;
 	this._visible = false;
-	this.autoHide = true;// автоматически скрыть когда procent === 100%
+	this.autoHide = true; // автоматически скрыть когда procent === 100%
 
-	this._width = 100;	// текущие размеры окна
+	this._width = 100; // текущие размеры окна
 	this._height = 100; // текущие размеры окна
 
 	this.img = new Image();
@@ -24,7 +23,7 @@ function Indicator (imageName, imageName1, fun) {
 	this.img1.style.pointerEvents = 'none';
 
 	this.countImgLoaded = 0;
-	this.baseImg = {width: 100, height: 100};
+	this.baseImg = { width: 100, height: 100 };
 
 	function onLoadImage () {
 		// debugger;
@@ -40,8 +39,10 @@ function Indicator (imageName, imageName1, fun) {
 		}
 	}
 	function updateImgWH () {
-		self.img1.width = self.img.width = self.baseImg.width * (1 / window.devicePixelRatio);
-		self.img1.height = self.img.height = self.baseImg.height * (1 / window.devicePixelRatio);
+		self.img1.width = self.img.width =
+			self.baseImg.width * (1 / window.devicePixelRatio);
+		self.img1.height = self.img.height =
+			self.baseImg.height * (1 / window.devicePixelRatio);
 		self.viewProcess();
 	}
 
@@ -53,10 +54,10 @@ function Indicator (imageName, imageName1, fun) {
 
 	// отображение процесса загрузки
 	this.viewProcess = function () {
-		var w = (self._width / 2 - self.img1.width / 2);
-		var h = (self._height / 2 - self.img1.height / 2);
-		var imW = self.img1.width / 100 * (self._procent);
-		var imH = self.img1.height / 100 * (self._procent);
+		var w = self._width / 2 - self.img1.width / 2;
+		var h = self._height / 2 - self.img1.height / 2;
+		var imW = self.img1.width / 100 * self._procent;
+		var imH = self.img1.height / 100 * self._procent;
 
 		self.img.style.top = h + 'px';
 		self.img.style.left = w + 'px';
@@ -68,16 +69,17 @@ function Indicator (imageName, imageName1, fun) {
 				self.img1.style.clip = 'rect(auto, ' + imW + 'px,auto, auto)';
 				break;
 			case 2:
-				self.img1.style.clip = 'rect(' + (self.img.height - imH) + 'px, auto, auto,  auto)';
+				self.img1.style.clip =
+					'rect(' + (self.img.height - imH) + 'px, auto, auto,  auto)';
 				break;
 			case 3:
-				self.img1.style.clip = 'rect(auto,auto, auto, ' + (self.img.width - imW) + 'px)';
+				self.img1.style.clip =
+					'rect(auto,auto, auto, ' + (self.img.width - imW) + 'px)';
 				break;
-			default :
+			default:
 				self.img1.style.clip = 'rect(auto,auto, ' + imH + 'px, auto)';
 		}
 	};
-
 }
 
 Object.defineProperties(Indicator.prototype, {
