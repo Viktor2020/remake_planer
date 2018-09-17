@@ -19,10 +19,7 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production",
-
-    "dev2": "webpack-dev-server --config webpack.second.config.js --mode development --open http://localhost:8080/index2.html",
-    "build2": "webpack --config webpack.second.config.js --mode production"
+    "build": "webpack --mode production"
   },
   "author": "",
   "license": "ISC"
