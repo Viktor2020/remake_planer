@@ -1,6 +1,8 @@
 
 import { Container, Graphics, autoDetectRenderer } from 'pixi.js';
 import { PlPanel } from '../utils/plBasicUnits/PlPanel.js';
+import { PlButton } from '../utils/plBasicUnits/PlButton.js';
+import TWEEN from '@tweenjs/tween.js';
 
 export function SceneApp () {
 	var self = this;
@@ -21,10 +23,17 @@ export function SceneApp () {
 	this.background = new Graphics();
 	this.stage.addChild(this.background);
 
-	this.panel = new PlPanel(this.stage, 100, 100);
+	this.panel = new PlPanel();
 	this.stage.addChild(this.panel);
 	this.panel.x = 100;
 	this.panel.y = 100;
+
+	this.button = new PlButton();
+	this.stage.addChild(this.button);
+	this.button.x = 210;
+	this.button.y = 100;
+	this.button.text = 'Text';
+	this.button.okDown = true
 
 
 	this.draw = function () {
@@ -43,6 +52,7 @@ export function SceneApp () {
 
 	this.render = function () {
 		this.renderer.render(this.stage);
+		TWEEN.update();
 	};
 
 	this.update = function () {

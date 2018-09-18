@@ -1,5 +1,9 @@
 
+import { PlStyles } from './PlStyles.js';
 import { Container, Graphics } from 'pixi.js';
+import TWEEN from '@tweenjs/tween.js';
+import { PlPanel } from './PlPanel.js';
+import { PlLabel } from './PlLabel.js';
 
 export function PlButton () {
 	Container.call(this);
@@ -16,9 +20,9 @@ export function PlButton () {
 	self.funError = null;
 
 	this._width = 100;
-	this._height = pl102.wh;
-	this._color = pl102.colorButton;
-	this._color1 = pl102.colorButton1;
+	this._height = PlStyles.wh;
+	this._color = PlStyles.colorButton;
+	this._color1 = PlStyles.colorButton1;
 	this._activ = false;
 	this._visiblePanel = true;
 	this._boolKontur = false;// показывать ли контур
@@ -36,20 +40,20 @@ export function PlButton () {
 	this.contentPanel = new Container();
 	this.addChild(this.contentPanel);
 
-	this.panel = new PLPanel(this.contentPanel, 0, 0);
-	pl102.removeElement(this.panel, true);
+	this.panel = new PlPanel();
+	this.contentPanel.addChild(this.panel);
 	this.panel.height = this._height;
 	this.panel.kontur = false;
 	this.panel.color = this._color;
 	this.panel.nizNum = 0;
 	this.panel.nizAlpha = 0.7;
 
-	this.panel1 = new PLPanel(this.contentPanel, 0, 0);
-	pl102.removeElement(this.panel1, true);
+	this.panel1 = new PlPanel();
+	this.contentPanel.addChild(this.panel1);
 	this.panel1.height = this._height;
 	this.panel1.kontur = false;
 	this.panel1.visible = false;
-	this.panel1.link = pl102.base2;
+	this.panel1.link = PlStyles.base2;
 	this.panel1.color = this._color1;
 	this.panel1.nizNum = 0;
 	this.panel1.nizAlpha = 1;
@@ -61,8 +65,8 @@ export function PlButton () {
 	this.addChild(this.contentFilt);
 	this.tween = new TWEEN.Tween(this.contentFilt);
 
-	this.label = new PLLabel(this.contentFilt, 5, 5, this._text);
-
+	this.label = new PlLabel();
+	this.contentFilt.addChild(this.label);
 
 	this.graphF = new Graphics();
 	this.contentFilt.addChild(this.graphF);
@@ -74,7 +78,7 @@ export function PlButton () {
 	this.addChild(this.contDop);
 
 	this.image;
-	this.filt = pl102.filter;
+	this.filt = PlStyles.filter;
 
 	this.label.setParam(this.label.font, 0xffffff, true);
 	this.rect = this.label.getBounds();
@@ -97,22 +101,16 @@ export function PlButton () {
 		this.width = (this.rect.width / this.worldTransform.a + 10) + otstup;
 	};
 
-	// this.updateActivMouse = function(){
-	//     if(!this._activMouse){
-	//     } else{
-	//         this.graphRect.clear();
-	//     }
-	// }
 	var ratio;
-	this.konturSize = pl102.kontur;
-	this.konturColor = pl102.colorSlid;
+	this.konturSize = PlStyles.kontur;
+	this.konturColor = PlStyles.colorSlid;
 	this.draw102 = function () {
 		this.graphInter.clear();
 		this.graphInter.beginFill(0xff0000, 0);
 		this.graphInter.drawRect(0, 0, this._width, this._height);
 
 		if (this._boolKontur) {
-			this.graphInter.lineStyle(this.konturSize, this.konturColor, 1);// pl102.color1
+			this.graphInter.lineStyle(this.konturSize, this.konturColor, 1);// PlStyles.color1
 			this.graphInter.drawRect(0.5, 0.5, this._width, this._height);
 		}
 		this.graphF.clear();
@@ -149,7 +147,7 @@ export function PlButton () {
 			this.contShap.y = (this._height - this._width) / 2;
 		}
 		this.graphRect.clear();
-		this.graphRect.beginFill(pl102.color);
+		this.graphRect.beginFill(PlStyles.color);
 		this.graphRect.drawRect(0, 0, this._width, this._height);
 		this.graphRect.endFill();
 	};
@@ -183,12 +181,12 @@ export function PlButton () {
 		if (self.fun)self.fun();
 		self.tipBut = 1;
 		self.draw102();
-		if (pl102.isMouseEvents) {
-			pl102.stage.on('mouseup', self.mouseUp);
-		}
-		if (pl102.isTouchEvents) {
-			pl102.stage.on('touchend', self.mouseUp);
-		}
+		// if (PlStyles.isMouseEvents) {
+		// 	PlStyles.stage.on('mouseup', self.mouseUp);
+		// }
+		// if (PlStyles.isTouchEvents) {
+		// 	PlStyles.stage.on('touchend', self.mouseUp);
+		// }
 
 	};
 	this.funUp;
@@ -198,25 +196,25 @@ export function PlButton () {
 		if (self.funUp !== undefined) {
 			self.funUp();
 		}
-		if (pl102.isMouseEvents) {
-			pl102.stage.off('mouseup', self.mouseUp);
+		if (PlStyles.isMouseEvents) {
+			PlStyles.stage.off('mouseup', self.mouseUp);
 		}
 
-		if (pl102.isTouchEvents) {
-			pl102.stage.off('touchend', self.mouseUp);
+		if (PlStyles.isTouchEvents) {
+			PlStyles.stage.off('touchend', self.mouseUp);
 		}
 	};
 
 	this.setStile = function (num, _w, _h) {
 
 		if (num === 0) {
-			this.label.setParam(14, pl102.style.fill);
+			this.label.setParam(14, PlStyles.style.fill);
 			this.panel.nizAlpha = 0.7;
 			this.panel.nizNum = 0;
-			this.color = pl102.colorButton;
+			this.color = PlStyles.colorButton;
 		}
 		if (num === 1) {
-			this.label.setParam(14, pl102.style.fill);
+			this.label.setParam(14, PlStyles.style.fill);
 			this.panel.nizAlpha = 0.25;
 			this.panel.nizNum = 30;
 			this.color = 0xf0f0f0;
@@ -294,7 +292,7 @@ export function PlButton () {
 					this.height = self._height;
 				}
 			});
-			pl102.removeElement(this.image, true);
+			PlStyles.removeElement(this.image, true);
 			this.image._preloaderBool = true;
 
 			this.image.funComplit = this.complitLoadImage;
@@ -309,11 +307,7 @@ export function PlButton () {
 
 	this.kill = function () {};
 
-	if (_link !== undefined) {
-		this.loadImeg(_link);
-	} else {
-		this.draw102();
-	}
+	this.draw102();
 
 	this._okDown = false;
 	this.okDown = true;
@@ -464,23 +458,23 @@ Object.defineProperties(PlButton.prototype, {
 				if (this._okDown === true) {
 					this.graphInter.interactive = true;
 					this.graphInter.buttonMode = true;
-					if (pl102.isMouseEvents) {
+					if (PlStyles.isMouseEvents) {
 						this.graphInter.on('mousedown', this.onDown);
 						this.graphInter.on('mouseout', this.mouseOut);
 						this.graphInter.on('mouseover', this.mouseOver);
 					}
-					if (pl102.isTouchEvents) {
+					if (PlStyles.isTouchEvents) {
 						this.graphInter.on('touchstart', this.onDown);
 					}
 				} else {
 					this.graphInter.interactive = false;
 					this.graphInter.buttonMode = false;
-					if (pl102.isMouseEvents) {
+					if (PlStyles.isMouseEvents) {
 						this.graphInter.off('mousedown', this.onDown);
 						this.graphInter.off('mouseout', this.mouseOut);
 						this.graphInter.off('mouseover', this.mouseOver);
 					}
-					if (pl102.isTouchEvents) {
+					if (PlStyles.isTouchEvents) {
 						this.graphInter.off('touchstart', this.onDown);
 					}
 				}
