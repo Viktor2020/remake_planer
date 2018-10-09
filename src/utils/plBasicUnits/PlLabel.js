@@ -1,28 +1,34 @@
 
-import { PlBasicUnit } from './PlBasicUnit.js';
+import { PlStyles } from './PlStyles.js';
 import { Container, Graphics, Text } from 'pixi.js';
 
 export function PlLabel () {
-	PlBasicUnit.call(this);
+	Container.call(this);
 	var self = this;
 	this.type = 'PlLabel';
 
 	this.content = new Container();
 	this.addChild(this.content);
 
+	this.funSetText;
+
 	this._bold = true;
 	this._text = '';
-	this._height = this.wh;
+	this._height = PlStyles.wh;
 	this._width = 100;
 	this._boolTin = false;
-	this._fontSize = 0;
+	this._fontSize;
 
-	this.strColor = '';
-	this.strColor2 = '';
+	if (this._text == undefined) this._text = 'text';
+	if (this._text == null) this._text = 'text';
+	if (this._text.length == 0) this._text = ' ';
 
-	this.curW = 0; // длина текста
-	this.curH = 0;
-
+	this.curW; // длина текста
+	this.curH;
+	this.style = {};
+	for (var s in PlStyles.style) {
+		this.style[s] = PlStyles.style[s];
+	}
 	this._align = this.style.align = 'center';
 	this._fontFamily = this.style.fontFamily;
 	this._fontSize = this.style.fontSize;
@@ -59,33 +65,13 @@ export function PlLabel () {
 		var r = this.label.getBounds();
 		this._height = r.height;
 	};
-	this.setColor = function () {
-		if (this.strColor.length > 2) {
-			if (this.strColor[1] == 'x') {
-				this.strColor2 = '#';
-				for (var i = 2; i < this.strColor.length; i++) {
-					this.strColor2 += this.strColor[i];
-				}
-				this._color = this.strColor2;
-			}
-		}
-		this.label.style.fill = this._color;
-		this.style.fill = this._color;
-	};
-
-	this.setText = function (value) {
-		if (value === 0) this._text = value + '';
-		this.label.text = this._text;
-		this.curW = this.label.width;
-		this.curH = this.label.height;
-		this.updateHeight();
-		this.dispatchEvent({type: 'settext'});
-	};
-
 	this.updateHeight();
+
+	this.strColor;
+	this.strColor2;
 }
 
-PlLabel.prototype = Object.create(PlBasicUnit.prototype);
+PlLabel.prototype = Object.create(Container.prototype);
 PlLabel.prototype.constructor = PlLabel;
 
 Object.defineProperties(PlLabel.prototype, {
@@ -124,6 +110,22 @@ Object.defineProperties(PlLabel.prototype, {
 			return this._fontSize;
 		}
 	},
+	text: {
+		set: function (value) {
+			this._text = value;
+			// TODO разобратса почему не воспринимает цифру 0
+			if (value === 0) this._text = value + '';
+			this.label.text = this._text;
+			this.curW = this.label.width;
+			this.curH = this.label.height;
+			this.updateHeight();
+
+			if (this.funSetText) this.funSetText();
+		},
+		get: function () {
+			return this._text;
+		}
+	},
 	fontFamily: {
 		set: function (value) {
 			this._fontFamily = value;
@@ -154,6 +156,44 @@ Object.defineProperties(PlLabel.prototype, {
 		},
 		get: function () {
 			return this._bold;
+		}
+	},
+	color: {
+		set: function (value) {
+			if (this._color != value) {
+				this.strColor = value + '';
+				this._color = value;
+				if (this.strColor.length > 2) {
+					if (this.strColor[1] == 'x') {
+						this.strColor2 = '#';
+						for (var i = 2; i < this.strColor.length; i++) {
+							this.strColor2 += this.strColor[i];
+						}
+						this._color = this.strColor2;
+					}
+				}
+				this.label.style.fill = this._color;
+				this.style.fill = this._color;
+			}
+		},
+		get: function () {
+			return this._color;
+		}
+	},
+	width: {
+		set: function (value) {
+			this._width = value;
+		},
+		get: function () {
+			return this._width;
+		}
+	},
+	height: {
+		set: function (value) {
+			this._height = value;
+		},
+		get: function () {
+			return this._height;
 		}
 	},
 	align: {
