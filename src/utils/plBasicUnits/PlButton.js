@@ -1,41 +1,48 @@
 
-import { PlStyles } from './PlStyles.js';
+
+import { PlBasicUnit } from './PlBasicUnit.js';
 import { Container, Graphics } from 'pixi.js';
 import TWEEN from '@tweenjs/tween.js';
 import { PlPanel } from './PlPanel.js';
 import { PlLabel } from './PlLabel.js';
+import globalParam from '../../components/GlobalParam.js';
 
 export function PlButton () {
-	Container.call(this);
+	PlBasicUnit.call(this);
 	var self = this;
 	this.type = 'PlButton';
 
-	this.fun = null;
-	this.funOver = null;
-	this.funOut = null;
-	this.funActiv = null;
-	this.funDown = null;
-	this.funDownFile = null;
-	this.funSetText = null;
+	// this.fun = null;
+	// this.funOver = null;
+	// this.funOut = null;
+	// this.funActiv = null;
+	// this.funDown = null;
+	// this.funDownFile = null;
+	// this.funSetText = null;
 	self.funError = null;
 
 	this._width = 100;
-	this._height = PlStyles.wh;
-	this._color = PlStyles.colorButton;
-	this._color1 = PlStyles.colorButton1;
+	this._height = this.wh;
+	this._color = this.colorButton;
+	this._color1 = this.colorButton1;
 	this._activ = false;
 	this._visiblePanel = true;
-	this._boolKontur = false;// показывать ли контур
-	this._otstup = 0;// отступ картинки от краев
-	this._boolProp = true;// масштабировать ли картинку
-	this.boolCenter = false;// центрировать ли картинку
+	this._boolKontur = false; // показывать ли контур
+	this._otstup = 0; // отступ картинки от краев
+	this._boolProp = true; // масштабировать ли картинку
 	this._okDown = true;
-	this._boolAnimKontut = true;// Мигание контура при наведении
+	this._boolAnimKontut = true; // Мигание контура при наведении
 	this._activMouse = true;
 	this._labelOtstup = null;
 	this._text = '';
-	this.boolScalePic = false;
 
+	this.boolScalePic = false;
+	this.result = null;
+	this.files = null;
+	this.boolCenter = false; // центрировать ли картинку
+	this.image = null;
+	this.link = null;
+	this.stage = globalParam.getParam('stage');
 
 	this.contentPanel = new Container();
 	this.addChild(this.contentPanel);
@@ -53,7 +60,7 @@ export function PlButton () {
 	this.panel1.height = this._height;
 	this.panel1.kontur = false;
 	this.panel1.visible = false;
-	this.panel1.link = PlStyles.base2;
+	this.panel1.link = this.base2;
 	this.panel1.color = this._color1;
 	this.panel1.nizNum = 0;
 	this.panel1.nizAlpha = 1;
@@ -77,8 +84,7 @@ export function PlButton () {
 	this.contDop = new Container();
 	this.addChild(this.contDop);
 
-	this.image;
-	this.filt = PlStyles.filter;
+	this.filt = this.filter;
 
 	this.label.setParam(this.label.font, 0xffffff, true);
 	this.rect = this.label.getBounds();
@@ -102,15 +108,15 @@ export function PlButton () {
 	};
 
 	var ratio;
-	this.konturSize = PlStyles.kontur;
-	this.konturColor = PlStyles.colorSlid;
+	this.konturSize = this.kontur;
+	this.konturColor = this.colorSlid;
 	this.draw102 = function () {
 		this.graphInter.clear();
 		this.graphInter.beginFill(0xff0000, 0);
 		this.graphInter.drawRect(0, 0, this._width, this._height);
 
 		if (this._boolKontur) {
-			this.graphInter.lineStyle(this.konturSize, this.konturColor, 1);// PlStyles.color1
+			this.graphInter.lineStyle(this.konturSize, this.konturColor, 1);
 			this.graphInter.drawRect(0.5, 0.5, this._width, this._height);
 		}
 		this.graphF.clear();
@@ -126,7 +132,7 @@ export function PlButton () {
 		}
 		this.label.y = (this._height - this.rect.height) / 2;
 
-		if (this.image !== undefined) {
+		if (this.image !== null) {
 			this.label.x = this._height + 5;
 			if (this.boolScalePic) {
 				ratio = this.image.picWidth / this._width;
@@ -147,7 +153,7 @@ export function PlButton () {
 			this.contShap.y = (this._height - this._width) / 2;
 		}
 		this.graphRect.clear();
-		this.graphRect.beginFill(PlStyles.color);
+		this.graphRect.beginFill(this._color);
 		this.graphRect.drawRect(0, 0, this._width, this._height);
 		this.graphRect.endFill();
 	};
@@ -157,7 +163,7 @@ export function PlButton () {
 			self.panel.kontur = false;
 			self.panel1.kontur = false;
 		}
-		if (self.funOut) self.funOut(e);
+		self.dispatchEvent({type: 'mouseout', param: e});
 	};
 
 	this.mouseOver = function (e) {
@@ -168,53 +174,43 @@ export function PlButton () {
 		self.contentFilt.alpha = 0.5;
 		self.tween.to({alpha: 1}, 500);
 		self.tween.start();
-		if (self.funOver) self.funOver(e);
+		self.dispatchEvent({type: 'mouseover', param: e});
 	};
 
 	this.onDown = function (e) {
 		if (self.file !== undefined) {
 			self.file.click();
-			if (self.funDownFile)self.funDownFile();
+			self.dispatchEvent({type: 'downloadfile'});
 			return;
 		}
-		if (self.funDown)self.funDown();
-		if (self.fun)self.fun();
+		self.dispatchEvent({type: 'mousedown', param: e});
 		self.tipBut = 1;
 		self.draw102();
-		// if (PlStyles.isMouseEvents) {
-		// 	PlStyles.stage.on('mouseup', self.mouseUp);
-		// }
-		// if (PlStyles.isTouchEvents) {
-		// 	PlStyles.stage.on('touchend', self.mouseUp);
-		// }
-
 	};
-	this.funUp;
+
 	this.mouseUp = function (e) {
 		self.tipBut = 0;
 		self.draw102();
-		if (self.funUp !== undefined) {
-			self.funUp();
-		}
-		if (PlStyles.isMouseEvents) {
-			PlStyles.stage.off('mouseup', self.mouseUp);
+		self.dispatchEvent({type: 'mouseup', param: e});
+		if (this.isMouseEvents) {
+			this.stage.off('mouseup', self.mouseUp);
 		}
 
-		if (PlStyles.isTouchEvents) {
-			PlStyles.stage.off('touchend', self.mouseUp);
+		if (this.isTouchEvents) {
+			this.stage.off('touchend', self.mouseUp);
 		}
 	};
 
 	this.setStile = function (num, _w, _h) {
 
 		if (num === 0) {
-			this.label.setParam(14, PlStyles.style.fill);
+			this.label.setParam(14, this.style.fill);
 			this.panel.nizAlpha = 0.7;
 			this.panel.nizNum = 0;
-			this.color = PlStyles.colorButton;
+			this.color = this.colorButton;
 		}
 		if (num === 1) {
-			this.label.setParam(14, PlStyles.style.fill);
+			this.label.setParam(14, this.style.fill);
 			this.panel.nizAlpha = 0.25;
 			this.panel.nizNum = 30;
 			this.color = 0xf0f0f0;
@@ -223,7 +219,6 @@ export function PlButton () {
 		if (_h) this.height = _h;
 	};
 
-	this.file;
 	this.startFile = function (accept) {
 		if (this.file === undefined) {
 			this.file = document.createElement('input');
@@ -233,8 +228,6 @@ export function PlButton () {
 			this.file.onchange = this.onchange;
 		}
 	};
-	this.result;
-	this.files;// files
 
 	this.onchange = function (e) {
 		if (e.target.files.length === 0) return;// нечего не выбрали
@@ -243,7 +236,7 @@ export function PlButton () {
 		reader.readAsDataURL(e.target.files[0]);
 		reader.onload = function (_e) {
 			self.result = _e.target.result;
-			if (self.fun) self.fun(self.result);
+			self.dispatchEvent({type: 'onload', param: self.result});
 			self.file.value = null;
 		};
 	};
@@ -259,16 +252,15 @@ export function PlButton () {
 	};
 
 	this.funErrorImage = function () {
-		if (self.funError) self.funError();
+		self.dispatchEvent({type: 'onerror'});
 	};
 
 	var propI;
 	var propE;
 	var w, h;
-	this.link;
 	this.loadImeg = function (link) {
 		this.link = link;
-		if (this.image === undefined) {
+		if (this.image === null) {
 			this.image = new PLImage(this.contentFilt, 0, 0, undefined, function () {
 
 				if (self._boolProp) {
@@ -292,7 +284,6 @@ export function PlButton () {
 					this.height = self._height;
 				}
 			});
-			PlStyles.removeElement(this.image, true);
 			this.image._preloaderBool = true;
 
 			this.image.funComplit = this.complitLoadImage;
@@ -307,13 +298,60 @@ export function PlButton () {
 
 	this.kill = function () {};
 
+	this.setColor = function (color) {
+		this.panel.color = color;
+	};
+
+	this.setColor1 = function (color) {
+		this.panel1.color1 = value;
+	};
+
+	this.setWidth = function (width) {
+		this.panel.width = value;
+		this.panel1.width = value;
+		this.draw102();
+	};
+
+	this.setHeight = function (height) {
+		this.panel.height = value;
+		this.panel1.height = value;
+		this.draw102();
+	};
+
+	this.setActiv = function (activ) {
+		this.panel.visible = !value;
+		this.panel1.visible = value;
+		this.dispatchEvent({type: 'setactiv'});
+	};
+
+	this.setActivMouse = function (activMouse) {
+		this.graphRect.visible = !activMouse;
+	};
+
+	this.setText = function (text) {
+		this.label.text = this._text;
+		if (text === undefined) this._text = 'text';
+		if (text == null) this._text = 'text';
+		if (text.length === 0) this._text = ' ';
+		this.rect = this.label.getBounds();
+		this.rect.width /= this.worldTransform.a;
+		this.rect.height /= this.worldTransform.a;
+		this.draw102();
+		this.dispatchEvent({type: 'settext'});
+	};
+
+	this.setOtstup = function (otstup) {
+		if (this.image) this.image.otstup = otstup;
+	};
+
+
 	this.draw102();
 
 	this._okDown = false;
 	this.okDown = true;
 }
 
-PlButton.prototype = Object.create(Container.prototype);
+PlButton.prototype = Object.create(PlBasicUnit.prototype);
 PlButton.prototype.constructor = PlButton;
 
 Object.defineProperties(PlButton.prototype, {
@@ -324,29 +362,6 @@ Object.defineProperties(PlButton.prototype, {
 		},
 		get: function () {
 			return this._visiblePanel;
-		}
-	},
-	width: {
-		set: function (value) {
-			this._width = value;
-
-			this.panel.width = value;
-			this.panel1.width = value;
-			this.draw102();
-		},
-		get: function () {
-			return this._width;
-		}
-	},
-	height: {
-		set: function (value) {
-			this._height = value;
-			this.panel.height = value;
-			this.panel1.height = value;
-			this.draw102();
-		},
-		get: function () {
-			return this._height;
 		}
 	},
 	boolAnimKontut: {
@@ -364,67 +379,6 @@ Object.defineProperties(PlButton.prototype, {
 			return this._boolAnimKontut;
 		}
 	},
-	activ: {
-		set: function (value) {
-			if (this._activ !== value) {
-				this._activ = value;
-				this.panel.visible = !value;
-				this.panel1.visible = value;
-
-				if (this.funActiv) this.funActiv();
-			}
-		},
-		get: function () {
-			return this._activ;
-		}
-	},
-	color: {
-		set: function (value) {
-			this._color = value;
-			this.panel.color = value;
-		},
-		get: function () {
-			return this._color;
-		}
-	},
-	color1: {
-		set: function (value) {
-			this._color1 = value;
-			this.panel1.color1 = value;
-		},
-		get: function () {
-			return this._color1;
-		}
-	},
-	activMouse: {
-		set: function (value) {
-			if (this._activMouse === value) return;
-			this._activMouse = value;
-			this.graphRect.visible = !this._activMouse;
-		},
-		get: function () {
-			return this._activMouse;
-		}
-	},
-	text: {
-		set: function (value) {
-			this._text = value;
-			this.label.text = this._text;
-			if (this._text === undefined) this._text = 'text';
-			if (this._text == null) this._text = 'text';
-			if (this._text.length === 0) this._text = ' ';
-
-			this.rect = this.label.getBounds();
-			this.rect.width /= this.worldTransform.a;
-			this.rect.height /= this.worldTransform.a;
-			this.draw102();
-
-			if (this.funSetText) this.funSetText();
-		},
-		get: function () {
-			return this._text;
-		}
-	},
 	boolKontur: {
 		set: function (value) {
 			this._boolKontur = value;
@@ -432,15 +386,6 @@ Object.defineProperties(PlButton.prototype, {
 		},
 		get: function () {
 			return this._boolKontur;
-		}
-	},
-	otstup: {
-		set: function (value) {
-			this._otstup = value;
-			if (this.image) this.image.otstup = this._otstup;
-		},
-		get: function () {
-			return this._otstup;
 		}
 	},
 	boolProp: {
@@ -458,23 +403,23 @@ Object.defineProperties(PlButton.prototype, {
 				if (this._okDown === true) {
 					this.graphInter.interactive = true;
 					this.graphInter.buttonMode = true;
-					if (PlStyles.isMouseEvents) {
+					if (this.isMouseEvents) {
 						this.graphInter.on('mousedown', this.onDown);
 						this.graphInter.on('mouseout', this.mouseOut);
 						this.graphInter.on('mouseover', this.mouseOver);
 					}
-					if (PlStyles.isTouchEvents) {
+					if (this.isTouchEvents) {
 						this.graphInter.on('touchstart', this.onDown);
 					}
 				} else {
 					this.graphInter.interactive = false;
 					this.graphInter.buttonMode = false;
-					if (PlStyles.isMouseEvents) {
+					if (this.isMouseEvents) {
 						this.graphInter.off('mousedown', this.onDown);
 						this.graphInter.off('mouseout', this.mouseOut);
 						this.graphInter.off('mouseover', this.mouseOver);
 					}
-					if (PlStyles.isTouchEvents) {
+					if (this.isTouchEvents) {
 						this.graphInter.off('touchstart', this.onDown);
 					}
 				}
