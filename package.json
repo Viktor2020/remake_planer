@@ -12,6 +12,7 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-3": "^6.24.1",
+    "mocha": "^5.2.0",
     "path": "^0.12.7",
     "pixi.js": "^4.8.2",
     "webpack": "^4.6.0",
@@ -20,7 +21,8 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "test": "mocha --recursive test/**/*.test.js"
   },
   "author": "",
   "license": "ISC"
