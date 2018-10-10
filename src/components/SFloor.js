@@ -1,5 +1,5 @@
 
-import { Container, Graphics, autoDetectRenderer } from 'pixi.js';
+import { Container, Graphics } from 'pixi.js';
 import { PlPanel } from '../utils/plBasicUnits/PlPanel.js';
 import { PlButton } from '../utils/plBasicUnits/PlButton.js';
 
