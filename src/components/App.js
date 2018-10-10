@@ -1,5 +1,7 @@
 
 import { SceneApp } from './SceneApp.js';
+import { SFloor } from './SFloor.js';
+
 
 export function App () {
 	var self = this;
@@ -13,6 +15,9 @@ export function App () {
 
 		self.appScene = new SceneApp();
 		self.appScene.resize(self.width, self.height);
+
+		self.sFloor = new SFloor();
+		
 		self.loop();
 
 		if (self.fun) self.fun('created');
