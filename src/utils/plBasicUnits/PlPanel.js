@@ -1,25 +1,26 @@
 
 import { Container, Graphics } from 'pixi.js';
-import { PlBasicUnit } from './PlBasicUnit.js';
+import { PlStyles } from './PlStyles.js';
 import { PlImage } from './PlImage.js';
 
 export function PlPanel () {
-	PlBasicUnit.call(this);
-	var self = this;
+	Container.call(this);
 	this.type = 'PlPanel';
+	var self = this;
 
 	this._width = 100;
 	this._height = 100;
-
-	this._isDrawKontur = true;
+	this._color = PlStyles.color;
+	this._color1 = PlStyles.color1;
+	this._kontur = true;
 	this._nizNum = 30;
 	this._nizAlpha = 0.2;
 	this._notBac = false;
 	this._visiLine = false;
-	this._link = this.base;
+	this._link = PlStyles.base;
 
-	this.konturThick = this.kontur;
-	this.lineThick = this.kontur;
+	this.konturThick = PlStyles.kontur;
+	this.lineThick = PlStyles.kontur;
 
 	this.graphics = new Graphics();
 	this.addChild(this.graphics);
@@ -47,6 +48,7 @@ export function PlPanel () {
 	this.draw102 = function () {
 		this.graphics.clear();
 		if (this._width < 2) return;
+
 		if (this._notBac === true) {
 			this.graphics.beginFill(this._color1);
 			this.graphics.drawRect(-this.konturThick / 2, -this.konturThick / 2, this._width + this.konturThick, this.konturThick);
@@ -56,7 +58,7 @@ export function PlPanel () {
 			return;
 		}
 
-		if (this._isDrawKontur === true) {
+		if (this._kontur === true) {
 			ot = this.lineThick;
 			this.graphics.beginFill(this._color1);
 			this.graphics.drawRect(0, 0, this._width, this._height);
@@ -75,40 +77,11 @@ export function PlPanel () {
 		this.graphLine.drawRect(ot, this._height, this._width - ot * 2, this.konturThick);
 	};
 
-	this.setColor = function () {
-		this.draw102();
-	};
-
-	this.setColor1 = function () {
-		this.draw102();
-	};
-
-	this.setWidth = function (width) {
-		this.image.width = width;
-		this.draw102();
-	};
-
-	this.setHeight = function (height) {
-		if (this._nizNum <= 0) {
-			this.image.height = height;
-			this.image.y = 0;
-		} else {
-			if (height > this._nizNum) {
-				this.image.height = this._nizNum;
-				this.image.y = height - this._nizNum;
-			} else {
-				this.image.height = height;
-				this.image.y = 0;
-			}
-		}
-		this.draw102();
-	};
-
 	this.kill = function () {};
 	this.draw102();
 }
 
-PlPanel.prototype = Object.create(PlBasicUnit.prototype);
+PlPanel.prototype = Object.create(Container.prototype);
 PlPanel.prototype.constructor = PlPanel;
 
 Object.defineProperties(PlPanel.prototype, {
@@ -138,7 +111,9 @@ Object.defineProperties(PlPanel.prototype, {
 		set: function (value) {
 			if (this._nizNum !== value) {
 				this._nizNum = value;
-				this.setHeight(this._height);
+				var h = this._height;
+				this._height = -1;
+				this.height = h;
 			}
 		},
 		get: function () {
@@ -156,15 +131,72 @@ Object.defineProperties(PlPanel.prototype, {
 			return this._notBac;
 		}
 	},
-	isDrawKontur: {// контур вокруг контента
+	kontur: {// контур вокруг контента
 		set: function (value) {
-			if (this._isDrawKontur !== value) {
-				this._isDrawKontur = value;
+			if (this._kontur !== value) {
+				this._kontur = value;
 				this.draw102();
 			}
 		},
 		get: function () {
-			return this._isDrawKontur;
+			return this._kontur;
+		}
+	},
+	width: {// ширина
+		set: function (value) {
+			if (this._width !== value) {
+				this._width = value;
+				this.image.width = value;
+				this.draw102();
+			}
+		},
+		get: function () {
+			return this._width;
+		}
+	},
+	height: {// высота
+		set: function (value) {
+			if (this._height !== value) {
+				this._height = value;
+				if (this._nizNum <= 0) {
+					this.image.height = value;
+					this.image.y = 0;
+				} else {
+					if (this._height > this._nizNum) {
+						this.image.height = this._nizNum;
+						this.image.y = this._height - this._nizNum;
+					} else {
+						this.image.height = value;
+						this.image.y = 0;
+					}
+				}
+				this.draw102();
+			}
+		},
+		get: function () {
+			return this._height;
+		}
+	},
+	color: { // цвет подложки снизу
+		set: function (value) {
+			if (this._color !== value) {
+				this._color = value;
+				this.draw102();
+			}
+		},
+		get: function () {
+			return this._color;
+		}
+	},
+	color1: { // цвет контура
+		set: function (value) {
+			if (this._color1 !== value) {
+				this._color1 = value;
+				this.draw102();
+			}
+		},
+		get: function () {
+			return this._color1;
 		}
 	},
 	visiLine: { // цвет контура
