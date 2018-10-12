@@ -1,10 +1,10 @@
 
 import { Container, Graphics } from 'pixi.js';
-import { PlBasicUnit } from './PlBasicUnit.js';
+import { PlBasic } from './PlBasic.js';
 import { PlImage } from './PlImage.js';
 
 export function PlPanel () {
-	PlBasicUnit.call(this);
+	PlBasic.call(this);
 	var self = this;
 	this.type = 'PlPanel';
 
@@ -108,7 +108,7 @@ export function PlPanel () {
 	this.draw102();
 }
 
-PlPanel.prototype = Object.create(PlBasicUnit.prototype);
+PlPanel.prototype = Object.create(PlBasic.prototype);
 PlPanel.prototype.constructor = PlPanel;
 
 Object.defineProperties(PlPanel.prototype, {

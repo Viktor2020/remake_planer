@@ -1,9 +1,9 @@
 
-import { PlBasicUnit } from './PlBasicUnit.js';
+import { PlBasic } from './PlBasic.js';
 import { Container, Graphics, Text } from 'pixi.js';
 
 export function PlLabel () {
-	PlBasicUnit.call(this);
+	PlBasic.call(this);
 	var self = this;
 	this.type = 'PlLabel';
 
@@ -85,7 +85,7 @@ export function PlLabel () {
 	this.updateHeight();
 }
 
-PlLabel.prototype = Object.create(PlBasicUnit.prototype);
+PlLabel.prototype = Object.create(PlBasic.prototype);
 PlLabel.prototype.constructor = PlLabel;
 
 Object.defineProperties(PlLabel.prototype, {

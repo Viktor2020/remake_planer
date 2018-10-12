@@ -1,6 +1,6 @@
 
 
-import { PlBasicUnit } from './PlBasicUnit.js';
+import { PlBasic } from './PlBasic.js';
 import { Container, Graphics } from 'pixi.js';
 import TWEEN from '@tweenjs/tween.js';
 import { PlPanel } from './PlPanel.js';
@@ -8,7 +8,7 @@ import { PlLabel } from './PlLabel.js';
 import globalParam from '../../components/GlobalParam.js';
 
 export function PlButton () {
-	PlBasicUnit.call(this);
+	PlBasic.call(this);
 	var self = this;
 	this.type = 'PlButton';
 
@@ -351,7 +351,7 @@ export function PlButton () {
 	this.okDown = true;
 }
 
-PlButton.prototype = Object.create(PlBasicUnit.prototype);
+PlButton.prototype = Object.create(PlBasic.prototype);
 PlButton.prototype.constructor = PlButton;
 
 Object.defineProperties(PlButton.prototype, {

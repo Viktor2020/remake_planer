@@ -1,9 +1,9 @@
 
 import { Container, Text, Sprite} from 'pixi.js';
-import { PlBasicUnit } from './PlBasicUnit.js';
+import { PlBasic } from './PlBasic.js';
 
 export function PlImage () {
-	PlBasicUnit.call(this);
+	PlBasic.call(this);
 	var self = this;
 	this.type = 'PlImage';
 
@@ -101,5 +101,5 @@ export function PlImage () {
 	};
 }
 
-PlImage.prototype = Object.create(PlBasicUnit.prototype);
+PlImage.prototype = Object.create(PlBasic.prototype);
 PlImage.prototype.constructor = PlImage;

@@ -1,7 +1,7 @@
 
 import { Container, Graphics } from 'pixi.js';
-import { PlPanel } from '../utils/plBasicUnits/PlPanel.js';
-import { PlButton } from '../utils/plBasicUnits/PlButton.js';
+import { PlPanel } from '../utils/plComponents/PlPanel.js';
+import { PlButton } from '../utils/plComponents/PlButton.js';
 
 export function SFloor () {
 	var self = this;

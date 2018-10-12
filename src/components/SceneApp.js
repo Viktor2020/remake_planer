@@ -1,7 +1,7 @@
 
 import { Container, Graphics, autoDetectRenderer } from 'pixi.js';
-import { PlPanel } from '../utils/plBasicUnits/PlPanel.js';
-import { PlButton } from '../utils/plBasicUnits/PlButton.js';
+import { PlPanel } from '../utils/plComponents/PlPanel.js';
+import { PlButton } from '../utils/plComponents/PlButton.js';
 import { SFloor } from '../components/SFloor.js';
 import globalParam from '../components/GlobalParam.js';
 import TWEEN from '@tweenjs/tween.js';

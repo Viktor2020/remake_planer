@@ -3,10 +3,10 @@ import { LoaderTexture } from '../../utils/LoaderTexture.js';
 import { EventDispatcher } from '../../utils/EventDispatcher.js';
 import { Container } from 'pixi.js';
 
-export function PlBasicUnit () {
+export function PlBasic () {
 	Container.call(this);
 	var self = this;
-	this.type = 'PlBasicUnit';
+	this.type = 'PlBasic';
 
 	this._width = 100;
 	this._height = 100;
@@ -52,11 +52,11 @@ export function PlBasicUnit () {
 	this.setLink = function () {};
 }
 
-PlBasicUnit.prototype = Object.create(Container.prototype);
-PlBasicUnit.prototype.constructor = PlBasicUnit;
-PlBasicUnit.prototype = Object.assign(PlBasicUnit.prototype, EventDispatcher.prototype);
+PlBasic.prototype = Object.create(Container.prototype);
+PlBasic.prototype.constructor = PlBasic;
+PlBasic.prototype = Object.assign(PlBasic.prototype, EventDispatcher.prototype);
 
-Object.defineProperties(PlBasicUnit.prototype, {
+Object.defineProperties(PlBasic.prototype, {
 	width: {
 		set: function (value) {
 			if (this._width === value) return;
