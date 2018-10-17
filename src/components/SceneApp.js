@@ -1,6 +1,10 @@
 
 import { Container, Graphics, autoDetectRenderer } from 'pixi.js';
-import { PlPanel } from '../../utils/plBasicUnits/PlPanel.js';
+import { PlPanel } from '../utils/plComponents/PlPanel.js';
+import { PlButton } from '../utils/plComponents/PlButton.js';
+import { SFloor } from '../components/SFloor.js';
+import globalParam from '../components/GlobalParam.js';
+import TWEEN from '@tweenjs/tween.js';
 
 export function SceneApp () {
 	var self = this;
@@ -17,32 +21,23 @@ export function SceneApp () {
 	document.body.appendChild(this.renderer.view);
 
 	this.stage = new Container();
+	globalParam.setParam('stage', this.stage);
 
-	this.background = new Graphics();
-	this.stage.addChild(this.background);
-
-	this.panel = new PlPanel(this.stage, 100, 100);
-	this.stage.addChild(this.panel);
-	this.panel.x = 100;
-	this.panel.y = 100;
-
-
-	this.draw = function () {
-		this.background.clear();
-		this.background.beginFill(0xffffff * Math.random());
-		this.background.drawRect(0, 0, this.width, this.height);
-		this.background.endFill();
-	};
+	this.sFloor = new SFloor();
+	this.stage.addChild(this.sFloor.content2d)
 
 	this.resize = function (width, height) {
 		this.width = width;
 		this.height = height;
-		this.draw();
+
+		this.sFloor.resize(this.width, this.height);
+		// this.draw();
 		this.renderer.resize(this.width, this.height);
 	};
 
 	this.render = function () {
 		this.renderer.render(this.stage);
+		TWEEN.update();
 	};
 
 	this.update = function () {

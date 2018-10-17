@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 
-	<meta charset="UTF-8">
-	<title>demo_planer</title>
+<meta charset="UTF-8">
+<title>demo_planer</title>
 
-	<style>
-		html, body {
+<style>
+	html, body {
 		margin: 0;
 		padding: 0;
 		width: 100%;
@@ -20,23 +19,16 @@
 
 <body>
 
-	<script src='common/Indicator.js'></script>
-	<script src='common/JSLoader.js'></script>
-	<script src='common/AppLoader.js'></script>
+	<script src='dist/Indicator.js'></script>
+	<script src='dist/JSLoader.js'></script>
+	<script src='dist/AppLoader.js'></script>
 
 	<script type="text/javascript">
 		/* eslint-disable */
 
-		var manifest = [
-			'dist/main.js' + '?a=' + Math.random()
-		];
+		var appLoader = new AppLoader();
 
-		var imgLink = 'resources/preloader/image_a.png';
-		var imgLink1 = 'resources/preloader/image_b.png';
-
-		var appLoader = new AppLoader(imgLink, imgLink1, manifest);
-
-		function sizeWindow() {
+		function sizeWindow () {
 			var w = document.documentElement.clientWidth;
 			var h = document.documentElement.clientHeight;
 			appLoader.sizeWindow(w, h);
@@ -44,8 +36,7 @@
 		sizeWindow();
 
 		window.addEventListener('resize', sizeWindow, false);
-
+		
 	</script>
 </body>
-
 </html>
