@@ -1,5 +1,4 @@
 
-import { App } from './components/App.js';
-
-window.App = App;
-exports.App = App;
+// тут будем экспортировать модули что нужны из вне
+export * from './components/App.js';
+// export * from './utils/EventDispatcher';
