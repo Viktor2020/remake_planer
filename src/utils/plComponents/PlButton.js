@@ -12,29 +12,14 @@ export function PlButton () {
 	var self = this;
 	this.type = 'PlButton';
 
-	// this.fun = null;
-	// this.funOver = null;
-	// this.funOut = null;
-	// this.funActiv = null;
-	// this.funDown = null;
-	// this.funDownFile = null;
-	// this.funSetText = null;
-	self.funError = null;
-
-	this._width = 100;
 	this._height = this.wh;
-	this._color = this.colorButton;
-	this._color1 = this.colorButton1;
-	this._activ = false;
 	this._visiblePanel = true;
 	this._boolKontur = false; // показывать ли контур
 	this._otstup = 0; // отступ картинки от краев
 	this._boolProp = true; // масштабировать ли картинку
 	this._okDown = true;
 	this._boolAnimKontut = true; // Мигание контура при наведении
-	this._activMouse = true;
 	this._labelOtstup = null;
-	this._text = '';
 
 	this.boolScalePic = false;
 	this.result = null;
@@ -177,7 +162,7 @@ export function PlButton () {
 		self.dispatchEvent({type: 'mouseover', param: e});
 	};
 
-	this.onDown = function (e) {
+	this.mouseDown = function (e) {
 		if (self.file !== undefined) {
 			self.file.click();
 			self.dispatchEvent({type: 'downloadfile'});
@@ -404,23 +389,23 @@ Object.defineProperties(PlButton.prototype, {
 					this.graphInter.interactive = true;
 					this.graphInter.buttonMode = true;
 					if (this.isMouseEvents) {
-						this.graphInter.on('mousedown', this.onDown);
+						this.graphInter.on('mousedown', this.mouseDown);
 						this.graphInter.on('mouseout', this.mouseOut);
 						this.graphInter.on('mouseover', this.mouseOver);
 					}
 					if (this.isTouchEvents) {
-						this.graphInter.on('touchstart', this.onDown);
+						this.graphInter.on('touchstart', this.mouseDown);
 					}
 				} else {
 					this.graphInter.interactive = false;
 					this.graphInter.buttonMode = false;
 					if (this.isMouseEvents) {
-						this.graphInter.off('mousedown', this.onDown);
+						this.graphInter.off('mousedown', this.mouseDown);
 						this.graphInter.off('mouseout', this.mouseOut);
 						this.graphInter.off('mouseover', this.mouseOver);
 					}
 					if (this.isTouchEvents) {
-						this.graphInter.off('touchstart', this.onDown);
+						this.graphInter.off('touchstart', this.mouseDown);
 					}
 				}
 			}

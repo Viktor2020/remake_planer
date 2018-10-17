@@ -1,9 +1,8 @@
 var assert = require('assert');
 
-import { PlButton } from '../../../src/utils/plBasicUnits/PlButton.js';
+import { PlButton } from '../../../src/utils/plComponents/PlButton.js';
 
-var btn = new PlButton();
-console.log(btn)
+
 
 describe('PlButton', function () {
 	describe('#indexOf()', function () {

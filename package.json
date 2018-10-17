@@ -22,7 +22,7 @@
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
-    "test": "mocha --recursive test/**/*.test.js"
+    "test": "mocha --recursive --compilers js:babel-core/register test/**/*.test.js"
   },
   "author": "",
   "license": "ISC"
