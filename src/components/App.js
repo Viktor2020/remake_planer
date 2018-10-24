@@ -61,3 +61,5 @@ export function App () {
 		}, deley * ++num);
 	};
 }
+var testClass2 = new  TestClass2();
+console.log('init in App', testClass2);
