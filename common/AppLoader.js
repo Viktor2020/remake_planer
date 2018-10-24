@@ -21,9 +21,9 @@ function AppLoader (link, link1, manifest) {
 	function onLoadJS (e) {
 		window.console.log('jsLoader onLoadJS', this.procent, e);
 
-		self.app = new App();
+		self.app = new e.App();
 		self.app.fun = onProgressInitApp;
-		self.app.fackeInit('типа входящие параметры');
+		self.app.init('типа входящие параметры');
 	}
 
 	function onProgressLoadJS () {
@@ -34,6 +34,7 @@ function AppLoader (link, link1, manifest) {
 	function onProgressInitApp (proc) {
 		self.indicator.procent = 100 * maxProcFile + proc * maxProcAppInit;
 		if (proc === 'created') {
+            self.indicator.procent = 100;
 			self.sizeWindow();
 		}
 	}
