@@ -18,10 +18,11 @@ function AppLoader (link, link1, manifest) {
 
 	this.jsLoader = new JSLoader(onLoadJS, onProgressLoadJS);
 
-	function onLoadJS (e) {
-		window.console.log('jsLoader onLoadJS', this.procent, e);
+	function onLoadJS () {
+		window.console.log('jsLoader onLoadJS', this.procent, window.MyLib); // MyLib прописал в webpack.config.js -> output.library: 'MyLib'
+		if (!window.MyLib) return;
 
-		self.app = new e.App();
+		self.app = new window.MyLib.App();
 		self.app.fun = onProgressInitApp;
 		self.app.init('типа входящие параметры');
 	}

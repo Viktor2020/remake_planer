@@ -1,12 +1,14 @@
 const path = require('path');
 
 let conf = {
-	entry: ['./src/testComp/test.exec.js', './src/testComp/test2.exec.js', './src/index.js'],
+	entry: ['./src/index.js'],
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'main.js',
-		publicPath: 'dist/'
+		publicPath: 'dist/',
+        library: 'MyLib'
 	},
+
 	devServer: {
 		overlay: true
 	},
@@ -17,20 +19,23 @@ let conf = {
 				loader: 'babel-loader',
 				// exclude: '/node_modules/'
 			},
-			{
-				test: /\.exec\.js$/,
-				loader: 'script-loader'
-			}
+            {
+                test: /\.js$/,
+                loader: 'script-loader',// loader: 'script-loader!uglify-loader', //
+                include: [
+                    path.resolve(__dirname, "vendor") // только в этой папке будем грузить этим лоадером
+                ],
+            },
 		]
 	},
-	devtool: 'eval-sourcemap'
+	devtool: 'sourcemap'
 };
 
 module.exports = conf;
 
 module.exports = (_env, _options) => {
 	let production = (_options.mode === 'production');
-	conf.devtool = production ? false : 'eval-sourcemap';
+	conf.devtool = production ? false : 'sourcemap';
 	// conf.devtool = production ? 'source-map' : 'eval-sourcemap';
 	return conf;
 };

@@ -17,7 +17,7 @@ export function App () {
 		self.appScene.resize(self.width, self.height);
 
 		self.sFloor = new SFloor();
-		
+
 		self.loop();
 
 		if (self.fun) self.fun('created');
@@ -61,5 +61,5 @@ export function App () {
 		}, deley * ++num);
 	};
 }
-var testClass2 = new  TestClass2();
-console.log('init in App', testClass2);
+// var testClass2 = new  TestClass2();
+// console.log('init in App', testClass2);

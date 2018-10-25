@@ -106,11 +106,12 @@ function JSLoader (onLoad, onProgress, onError) {
 	};
 }
 
-JSLoader.prototype.complete = function evalComplete () {
-	var strScript = this.arrResponce.join('');
-	var res = eval(strScript);
-
+JSLoader.prototype.complete = function oneScript () {
+    var strScript = this.arrResponce.join('');
+	var script = document.createElement('script');
+	script.innerHTML = strScript;
+	document.getElementsByTagName('head')[0].appendChild(script);
 	if (this.onLoad !== undefined) {
-		this.onLoad(res);
+		this.onLoad();
 	}
 };
